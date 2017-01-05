@@ -1,0 +1,104 @@
+﻿@using WebApplication3.ViewModels;
+@using WebApplication3.Models;
+@model AssignmentViewModel
+
+<div class="container page__module" style="margin-bottom:15px">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="title_class">@Model.Title</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container form_container">
+    <div class="row form_outer_row">
+
+        <!---------- new count form ---------->
+        <div class="col-xs-9 form_divider_border">
+            <form asp-controller="Assignments" asp-action="Create" method="post" class="form-horizontal" role="form">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <!---------- company info ---------->
+                <!-- form input - client name -->
+                <div class="form-group">
+                    <label asp-for="ClientName" class="col-xs-3 control-label">Client Name</label>
+                    <div class="col-xs-9">
+                        <input asp-for="ClientName" class="form-control" />
+                        <span asp-validation-for="ClientName" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- form input - address -->
+                <div class="form-group">
+                    <label asp-for="Address" class="col-xs-3 control-label">Client Address</label>
+                    <div class="col-xs-9">
+                        <textarea asp-for="Address" class="form-control"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- form input - client contacts -->
+                <div class="form-group">
+                    <label asp-for="ContactPersons" class="col-xs-3 control-label">Client Contacts</label>
+                    <div class="col-xs-9">
+                        <input id="contactPersonCount" asp-for="ContactPersons.Count" type="hidden" />
+                        <table id="personalContactTable" class="table">
+                            <tr>
+                                <th class="col-xs-6" style="padding: 0; border-top: none">
+                                    <label asp-for="ContactPersons.FirstOrDefault().Name" class="control-label control_label_name"></label>
+                                </th>
+                                <th class="col-xs-6" style="padding: 0;  border-top: none">
+                                    <label asp-for="ContactPersons.FirstOrDefault().PhoneNumber" class="control-label control_label_phone" style="margin-left: 8px"></label>
+                                </th>
+                            </tr>
+                            @for (var i = 0; i < Model.ContactPersons.Count(); i++)
+                            {
+                                <tr>
+                                    <th style="padding-right: 8px; padding-left: 0; border-top: none; padding-bottom: 0">
+                                        <input asp-for="@Model.ContactPersons[i].Name" class="form-control col-xs-5" />
+                                        <span asp-validation-for="@Model.ContactPersons[i].Name" class="text-danger"></span>
+                                    </th>
+                                    <th style="padding-right: 0px; padding-left: 8px; border-top: none; padding-bottom: 0">
+                                        <input asp-for="@Model.ContactPersons[i].PhoneNumber" class="form-control col-xs-5" />
+                                        <span asp-validation-for="@Model.ContactPersons[i].PhoneNumber" class="text-danger" style=""></span>
+                                    </th>
+                                </tr>
+                            }
+                        </table>
+                        <div class="add-personalContacts col-xs-offset-3" style="margin-left: 0">
+                            
+                        </div>
+                    </div><!-- end col -->
+                </div>
+                <!---------- company info ---------->
+                <!-- form input - basic instructions -->
+                <div class="form-group">
+                    <label asp-for="BasicInstruction" class="col-xs-3 control-label">Basic Instruction</label>
+                    <div class="col-xs-9">
+                        <textarea asp-for="BasicInstruction" class="form-control"></textarea>
+                        <span asp-validation-for="BasicInstruction" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- form input - final deliverable listing -->
+                <div class="form-group">
+                    <label asp-for="FinalDeliverableListing" class="col-xs-3 control-label">Final Deliverable Listing</label>
+                    <div class="col-xs-9">
+                        <textarea asp-for="FinalDeliverableListing" class="form-control"></textarea>
+                        <span asp-validation-for="FinalDeliverableListing" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- form input - expected number of items -->
+                <div class="form-group">
+                    <label asp-for="ExpectedNumberOfItems" class="col-xs-3 control-label">Expected Number Of Items</label>
+                    <div class="col-xs-9">
+                        <input asp-for="ExpectedNumberOfItems" class="form-control numeric" />
+                        <span asp-validation-for="ExpectedNumberOfItems" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- form input - submit -->
+                <div class="form-group" style="margin-bottom: 100px;">
+                    <div class="col-xs-offset-3 col-xs-9">
+                        <input type="submit" value="Create Assignment" class="btn-form" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!-- END Row -->
+</div><!-- END Container -->
